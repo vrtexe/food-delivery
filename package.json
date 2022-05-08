@@ -1,10 +1,10 @@
 {
-  "name": "food-delivery-ui",
+  "name": "the-foodie-express-ui",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint .",
     "lint:fix": "eslint --fix",
