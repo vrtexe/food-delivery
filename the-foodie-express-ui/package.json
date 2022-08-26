@@ -1,0 +1,50 @@
+{
+  "name": "the-foodie-express-ui",
+  "private": true,
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix",
+    "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc",
+    "clean": "rimraf -rf target src/shared/generated",
+    "generate-types": "cross-env TS_POST_PROCESS_FILE=\"node node_modules/prettier/bin-prettier.js --write\" node node_modules/@openapitools/openapi-generator-cli/main.js generate -g typescript-axios --enable-post-process-file --additional-properties=typescriptThreePlus=true,supportsES6=true --type-mappings='set=Array' -i ../the-foodie-express-api/src/main/resources/openapi-docs.yml -o src/shared/generated"
+  },
+  "dependencies": {
+    "@heroicons/react": "^1.0.6",
+    "formik": "^2.2.9",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-router-dom": "^6.3.0",
+    "rimraf": "^3.0.2",
+    "vite-plugin-svgr": "^2.1.0",
+    "yup": "^0.32.11"
+  },
+  "devDependencies": {
+    "@openapitools/openapi-generator-cli": "^2.5.1",
+    "@tailwindcss/forms": "^0.5.1",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.22.0",
+    "@typescript-eslint/parser": "^5.22.0",
+    "@vitejs/plugin-react": "^1.3.0",
+    "autoprefixer": "^10.4.7",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.14.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.29.4",
+    "eslint-plugin-react-hooks": "^4.5.0",
+    "postcss": "^8.4.13",
+    "prettier": "^2.6.2",
+    "prettier-plugin-tailwindcss": "^0.1.8",
+    "tailwindcss": "^3.0.24",
+    "typescript": "^4.6.3",
+    "vite": "^2.9.7"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "recommendations": [
+    "rvest.vs-code-prettier-eslint",
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "ecmel.vscode-html-css",
+    "pranaygp.vscode-css-peek",
+    "Zignd.html-css-class-completion",
+    "bradlc.vscode-tailwindcss",
+    "infeng.vscode-react-typescript",
+    "antfu.vite",
+    "VisualStudioExptTeam.vscodeintellicode",
+    "ionutvmi.path-autocomplete",
+    "christian-kohler.path-intellisense",
+    "redhat.vscode-xml",
+    "redhat.vscode-yaml",
+    "eamodio.gitlens"
+  ],
+  "unwantedRecommendations": []
+}

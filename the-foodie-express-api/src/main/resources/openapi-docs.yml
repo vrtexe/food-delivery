@@ -1,0 +1,887 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+- url: http://localhost
+  description: Generated server url
+paths:
+  /api/users/profile-update:
+    put:
+      tags:
+      - user-controller
+      operationId: updateUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterDto'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/User'
+  /api/restaurants:
+    get:
+      tags:
+      - restaurant-controller
+      operationId: getAllRestaurants
+      parameters:
+      - name: name
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: cuisine
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - ITALIAN
+          - INDIAN
+          - JAPANESE
+          - CHINESE
+          - THAI
+          - TURKISH
+          - MEXICAN
+          - FRENCH
+          - SPANISH
+          - MACEDONIAN
+      - name: rating
+        in: query
+        required: false
+        schema:
+          type: number
+          format: double
+      - name: workingHours
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: address
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: phoneNumber
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: Zero-based page index (0..N)
+        required: false
+        schema:
+          minimum: 0
+          type: integer
+          default: 0
+      - name: size
+        in: query
+        description: The size of the page to be returned
+        required: false
+        schema:
+          minimum: 1
+          type: integer
+          default: 20
+      - name: sort
+        in: query
+        description: "Sorting criteria in the format: property,(asc|desc). Default\
+          \ sort order is ascending. Multiple sort criteria are supported."
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PageRestaurantDto'
+    put:
+      tags:
+      - restaurant-controller
+      operationId: updateRestaurant
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RestaurantDto'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Restaurant'
+    post:
+      tags:
+      - restaurant-controller
+      operationId: createRestaurant
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RestaurantDto'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Restaurant'
+  /api/orders:
+    get:
+      tags:
+      - order-controller
+      operationId: getAll
+      parameters:
+      - name: fromDate
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: toDate
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: fromPrice
+        in: query
+        required: false
+        schema:
+          type: number
+          format: double
+      - name: toPrice
+        in: query
+        required: false
+        schema:
+          type: number
+          format: double
+      - name: address
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: userEmail
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: Zero-based page index (0..N)
+        required: false
+        schema:
+          minimum: 0
+          type: integer
+          default: 0
+      - name: size
+        in: query
+        description: The size of the page to be returned
+        required: false
+        schema:
+          minimum: 1
+          type: integer
+          default: 20
+      - name: sort
+        in: query
+        description: "Sorting criteria in the format: property,(asc|desc). Default\
+          \ sort order is ascending. Multiple sort criteria are supported."
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PageOrderDto'
+    put:
+      tags:
+      - order-controller
+      operationId: update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderDto'
+        required: true
+      responses:
+        "200":
+          description: OK
+    post:
+      tags:
+      - order-controller
+      operationId: create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderDto'
+        required: true
+      responses:
+        "200":
+          description: OK
+  /api/dishes:
+    get:
+      tags:
+      - dish-controller
+      operationId: getAllDishesByRestaurant
+      parameters:
+      - name: cuisine
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - ITALIAN
+          - INDIAN
+          - JAPANESE
+          - CHINESE
+          - THAI
+          - TURKISH
+          - MEXICAN
+          - FRENCH
+          - SPANISH
+          - MACEDONIAN
+      - name: restaurantId
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: Zero-based page index (0..N)
+        required: false
+        schema:
+          minimum: 0
+          type: integer
+          default: 0
+      - name: size
+        in: query
+        description: The size of the page to be returned
+        required: false
+        schema:
+          minimum: 1
+          type: integer
+          default: 20
+      - name: sort
+        in: query
+        description: "Sorting criteria in the format: property,(asc|desc). Default\
+          \ sort order is ascending. Multiple sort criteria are supported."
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PageDishDto'
+    put:
+      tags:
+      - dish-controller
+      operationId: updateDish
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DishDto'
+        required: true
+      responses:
+        "200":
+          description: OK
+    post:
+      tags:
+      - dish-controller
+      operationId: createDish
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DishDto'
+        required: true
+      responses:
+        "200":
+          description: OK
+  /api/users/register:
+    post:
+      tags:
+      - user-controller
+      operationId: register
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterDto'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+  /api/users/login:
+    post:
+      tags:
+      - user-controller
+      operationId: login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginDto'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+  /api/shopping-carts/add-item:
+    post:
+      tags:
+      - shopping-cart-controller
+      operationId: createShoppingCartItem
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShoppingCartItemDto'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ShoppingCartItem'
+  /api/reviews/new:
+    post:
+      tags:
+      - review-controller
+      operationId: createReview
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReviewDto'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ReviewDto'
+  /api/restaurants/{id}:
+    get:
+      tags:
+      - restaurant-controller
+      operationId: getRestaurantById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Restaurant'
+    delete:
+      tags:
+      - restaurant-controller
+      operationId: deleteRestaurant
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/orders/{id}:
+    get:
+      tags:
+      - order-controller
+      operationId: get
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OrderDto'
+    delete:
+      tags:
+      - order-controller
+      operationId: delete
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+  /api/dishes/{id}:
+    get:
+      tags:
+      - dish-controller
+      operationId: getDishById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/DishDto'
+    delete:
+      tags:
+      - dish-controller
+      operationId: deleteDish
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+  /api/shopping-carts/remove-item/{id}:
+    delete:
+      tags:
+      - shopping-cart-controller
+      operationId: deleteShoppingCartItem
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+components:
+  schemas:
+    RegisterDto:
+      required:
+      - email
+      - name
+      - password
+      - surname
+      type: object
+      properties:
+        email:
+          type: string
+        name:
+          maxLength: 255
+          minLength: 1
+          type: string
+        surname:
+          maxLength: 255
+          minLength: 1
+          type: string
+        role:
+          pattern: (USER)|(ADMIN)
+          type: string
+        password:
+          maxLength: 16
+          minLength: 8
+          type: string
+    Dish:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        price:
+          type: number
+          format: double
+        cuisine:
+          type: string
+          enum:
+          - ITALIAN
+          - INDIAN
+          - JAPANESE
+          - CHINESE
+          - THAI
+          - TURKISH
+          - MEXICAN
+          - FRENCH
+          - SPANISH
+          - MACEDONIAN
+        description:
+          type: string
+        restaurant:
+          $ref: '#/components/schemas/Restaurant'
+    Restaurant:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        rating:
+          type: number
+          format: double
+        workingHours:
+          type: string
+        address:
+          type: string
+        phoneNumber:
+          type: string
+        dishes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Dish'
+    User:
+      type: object
+      properties:
+        email:
+          type: string
+        name:
+          type: string
+        surname:
+          type: string
+        role:
+          type: string
+          enum:
+          - USER
+          - ADMIN
+        password:
+          type: string
+        favouriteRestaurants:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Restaurant'
+    RestaurantDto:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        rating:
+          type: number
+          format: double
+        workingHours:
+          type: string
+        address:
+          type: string
+        phoneNumber:
+          type: string
+    OrderDto:
+      type: object
+      properties:
+        id:
+          type: string
+        dateTime:
+          type: string
+          format: date-time
+        price:
+          type: number
+          format: double
+        address:
+          type: string
+    DishDto:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        price:
+          type: number
+          format: double
+        description:
+          type: string
+        restaurantId:
+          type: string
+        cuisine:
+          type: string
+          enum:
+          - ITALIAN
+          - INDIAN
+          - JAPANESE
+          - CHINESE
+          - THAI
+          - TURKISH
+          - MEXICAN
+          - FRENCH
+          - SPANISH
+          - MACEDONIAN
+    AuthResponse:
+      required:
+      - jwt
+      - user
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/User'
+        jwt:
+          type: string
+        shoppingCartId:
+          type: string
+        shoppingCartItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShoppingCartItemDetails'
+    ShoppingCartItemDetails:
+      type: object
+      properties:
+        id:
+          type: string
+        dishId:
+          type: string
+        quantity:
+          type: integer
+          format: int32
+    LoginDto:
+      required:
+      - email
+      - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          maxLength: 16
+          minLength: 8
+          type: string
+    ShoppingCartItemDto:
+      required:
+      - dishId
+      - quantity
+      type: object
+      properties:
+        dishId:
+          maxLength: 255
+          minLength: 1
+          type: string
+        quantity:
+          minimum: 1
+          type: integer
+          format: int32
+    Order:
+      type: object
+      properties:
+        id:
+          type: string
+        dateTime:
+          type: string
+          format: date-time
+        price:
+          type: number
+          format: double
+        address:
+          type: string
+        user:
+          $ref: '#/components/schemas/User'
+    ShoppingCart:
+      type: object
+      properties:
+        id:
+          type: string
+        user:
+          $ref: '#/components/schemas/User'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShoppingCartItem'
+    ShoppingCartItem:
+      type: object
+      properties:
+        id:
+          type: string
+        shoppingCart:
+          $ref: '#/components/schemas/ShoppingCart'
+        dish:
+          $ref: '#/components/schemas/Dish'
+        quantity:
+          type: integer
+          format: int32
+        order:
+          $ref: '#/components/schemas/Order'
+    ReviewDto:
+      required:
+      - restaurantId
+      - score
+      type: object
+      properties:
+        restaurantId:
+          maxLength: 255
+          minLength: 1
+          type: string
+        score:
+          maximum: 5
+          minimum: 1
+          type: integer
+          format: int32
+    PageRestaurantDto:
+      type: object
+      properties:
+        totalPages:
+          type: integer
+          format: int32
+        totalElements:
+          type: integer
+          format: int64
+        size:
+          type: integer
+          format: int32
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/RestaurantDto'
+        number:
+          type: integer
+          format: int32
+        sort:
+          $ref: '#/components/schemas/Sort'
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
+        first:
+          type: boolean
+        last:
+          type: boolean
+        numberOfElements:
+          type: integer
+          format: int32
+        empty:
+          type: boolean
+    PageableObject:
+      type: object
+      properties:
+        offset:
+          type: integer
+          format: int64
+        sort:
+          $ref: '#/components/schemas/Sort'
+        pageNumber:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        paged:
+          type: boolean
+        unpaged:
+          type: boolean
+    Sort:
+      type: object
+      properties:
+        empty:
+          type: boolean
+        sorted:
+          type: boolean
+        unsorted:
+          type: boolean
+    PageOrderDto:
+      type: object
+      properties:
+        totalPages:
+          type: integer
+          format: int32
+        totalElements:
+          type: integer
+          format: int64
+        size:
+          type: integer
+          format: int32
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderDto'
+        number:
+          type: integer
+          format: int32
+        sort:
+          $ref: '#/components/schemas/Sort'
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
+        first:
+          type: boolean
+        last:
+          type: boolean
+        numberOfElements:
+          type: integer
+          format: int32
+        empty:
+          type: boolean
+    PageDishDto:
+      type: object
+      properties:
+        totalPages:
+          type: integer
+          format: int32
+        totalElements:
+          type: integer
+          format: int64
+        size:
+          type: integer
+          format: int32
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/DishDto'
+        number:
+          type: integer
+          format: int32
+        sort:
+          $ref: '#/components/schemas/Sort'
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
+        first:
+          type: boolean
+        last:
+          type: boolean
+        numberOfElements:
+          type: integer
+          format: int32
+        empty:
+          type: boolean
