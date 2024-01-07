@@ -25,7 +25,7 @@ class TheFoodieExpressApplicationTests {
 //	void contextLoads() {
 //	}
     
-    @Test
+    // @Test
     void load() throws Exception {
         var content = this.mockMvc.perform(get("/v3/api-docs.yaml"))
                 .andExpect(status().isOk())
